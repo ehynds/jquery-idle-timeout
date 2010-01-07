@@ -42,7 +42,7 @@ $(function(){
 	});
 	
 	// if the continue link is clicked..
-	$("a", $bar).click(function(){
+	$bar.find("a").click(function(){
 		
 		// stop the timer
 		clearInterval(timer);

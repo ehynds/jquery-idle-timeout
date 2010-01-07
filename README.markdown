@@ -7,4 +7,6 @@ This script allows you to create a logout timer similar to the one found on Mint
 slides in informing the user his/her session is about to expure, and provides a link to continue the session.  If after 30 seconds (configurable, default) 
 the user does not click the continue session link, the user is redirected.
 
+Thanks to Paul Irish for the fantastic idleTimer plugin.
+
 ![Example](http://www.erichynds.com/examples/jquery-idle-timeout/screenshot.gif)

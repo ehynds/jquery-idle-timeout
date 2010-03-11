@@ -1,21 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>jQuery Idletimeout</title>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-<script src="src/jquery.idletimer.js" type="text/javascript"></script>
-<script src="src/jquery.idletimeout.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-// note, don't wait for document.ready() - we want to detect idle state ASAP
-$.idleTimeout({
-	idleAfter: 5,
-	pollingInterval: 1,
-	keepAliveURL: 'keepalive.php',
-	serverResponseEquals: 'OK'
-});
-</script>
+<title>jQuery Idle Timeout</title>
 
 <style type="text/css">
 html, body { margin:0; padding:0; }
@@ -36,14 +23,45 @@ html, body { margin:0; padding:0; }
 	z-index:100000; 
 	display:none; 
 }
+
+#idletimeout a { color:#fff; font-weight:bold }
+#idletimeout span { font-weight:bold }
 </style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+<script src="src/jquery.idletimer.js" type="text/javascript"></script>
+<script src="src/jquery.idletimeout.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+// note, don't wait for document.ready() - we want to detect idle state ASAP
+$.idleTimeout({
+	idleAfter: 5,
+	pollingInterval: 1,
+	keepAliveURL: 'keepalive.php',
+	serverResponseEquals: 'OK',
+	onTimeout: function(){
+		$(this).slideUp();
+		window.location = "timeout.htm";
+	},
+	onIdle: function(){
+		$(this).slideDown(); // show the warning bar
+	},
+	onCountdown: function(counter){
+		$(this).find("span").html(counter); // update the counter
+	},
+	onResume: function(){
+		$(this).slideUp(); // hide the warning bar
+	}
+});
+</script>
+
 </head>
 
 <body>
 
 <div id="idletimeout">
 	You will be logged off in <span><!-- countdown place holder --></span>&nbsp;seconds due to inactivity. 
-	<a id="idletimeout-resume" href="#" style="color:#fff; font-weight:bold;">Click here to continue using this web page</a>.
+	<a id="idletimeout-resume" href="#">Click here to continue using this web page</a>.
 </div>
 
 <div id="content">

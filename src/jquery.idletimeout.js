@@ -33,27 +33,17 @@
 				Callbacks
 				"this" refers to the #idletimeout element.
 			*/
-			
 			// callback to fire when the session is resumed (by clicking the resume link)
-			onTimeout: function(){
-				$(this).slideUp();
-				window.location = "timeout.htm";
-			},
+			onTimeout: function(){},
 			
 			// fires when the user becomes idle
-			onIdle: function(){
-				$(this).slideDown(); // show the warning bar
-			},
+			onIdle: function(){},
 			
 			// fires during each second of warningLength
-			onCountdown: function(counter){
-				$(this).find("span").html(counter);
-			},
+			onCountdown: function(){},
 			
 			// fires when the user resumes the session
-			onResume: function(){
-				$(this).slideUp(); // hide the warning bar
-			},
+			onResume: function(){},
 			
 			// callback to fire when the script is aborted due to too many failed requests
 			onAbort: function(){}

@@ -22,11 +22,18 @@
 			// number of failed polling requests until we abort this script
 			failedRequests: 5,
 			
+			// the keepalive AJAX call timeout in MILLISECONDS! 
+			AJAXTimeout: 250,
+			
 			// callback to fire when the session is resumed (by clicking the resume link)
 			onTimeout: function(){
 				window.location = "timeout.htm";
-			}
+			},
+			
+			// callback to fire when the script is aborted due to too many failed requests
+			onAbort: function(){}
 		}, options);
+		
 		
 		
 		var IdleTimeout = {
@@ -111,7 +118,7 @@
 				clearInterval(this.timer);
 			},
 			
-			// fires if the keepalive request failed
+			// when the ajax request fails, either timeout of invalid serverResponseEquals
 			_failed: function(){
 				this.failedRequests--;
 			},
@@ -122,11 +129,12 @@
 				// if too many requests failed, abort
 				if(!this.failedRequests){
 					this._stopTimer();
+					options.onAbort();
 					return;
 				}
 				
 				$.ajax({
-					timeout: 250,
+					timeout: options.AJAXTimeout,
 					url: options.keepAliveURL,
 					error: function(){
 						self._failed();

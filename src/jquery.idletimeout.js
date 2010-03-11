@@ -78,15 +78,15 @@
 				$bar.slideDown();
 	
 				// create a timer that runs every second
-				timer = setInterval(function(){
+				timer = window.setInterval(function(){
 					counter -= 1;
 					
 					if(counter === 0){
 						options.onTimeout();
-						clearInterval(timer);
+						window.clearInterval(timer);
 					} else {
 						$countdown.html( counter );
-					};
+					}
 					
 				}, 1000);
 				
@@ -94,7 +94,7 @@
 				$bar.find("a").click(function(e){
 					e.preventDefault();
 					
-					clearInterval(timer); // stop the countdown
+					window.clearInterval(timer); // stop the countdown
 					$bar.slideUp(); // hide the warning bar
 					self.countdownOpen = false; // stop countdown
 					self._startTimer(); // start up the timer again
@@ -104,7 +104,7 @@
 			_startTimer: function(){
 				var self = this;
 				
-				this.timer = setInterval(function(){
+				this.timer = window.setInterval(function(){
 					self._keepAlive();
 				}, options.interval * 1000);
 			},
@@ -115,7 +115,7 @@
 				this.failedRequests = options.failedRequests;
 				
 				// stop the timer
-				clearInterval(this.timer);
+				window.clearInterval(this.timer);
 			},
 			
 			// when the ajax request fails, either timeout of invalid serverResponseEquals
@@ -148,10 +148,10 @@
 					}
 				});
 			}
-		}
+		};
 		
 		// run this thang
 		IdleTimeout.init();
- 	}
+	};
 	
 })(jQuery);

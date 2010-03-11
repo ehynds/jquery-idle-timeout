@@ -25,20 +25,45 @@
 			// the keepalive AJAX call timeout in MILLISECONDS! 
 			AJAXTimeout: 250,
 			
+			/*
+				Callbacks
+				"this" refers to the #idletimeout element.
+			*/
+			
 			// callback to fire when the session is resumed (by clicking the resume link)
 			onTimeout: function(){
+				$(this).slideUp();
 				window.location = "timeout.htm";
+			},
+			
+			// fires when the user becomes idle
+			onIdle: function(){
+				$(this).slideDown(); // show the warning bar
+			},
+			
+			// fires when the user resumes the session
+			onResume: function(){
+				$(this).slideUp(); // hide the warning bar
 			},
 			
 			// callback to fire when the script is aborted due to too many failed requests
 			onAbort: function(){}
+			
 		}, options);
-		
-		
+
 		
 		var IdleTimeout = {
 			init: function(){
 				var self = this;
+				
+				// cache elements once the DOM is ready
+				$(function(){
+					self.elements = {
+						warning: $("#idletimeout"),
+						resume: $("#idletimeout-resume"),
+						countdown: $("#idletimeout-countdown")
+					}
+				});
 				
 				this.countdownOpen = false;
 				this._startTimer();
@@ -63,41 +88,37 @@
 			},
 			
 			_idle: function(){
-				var self = this,
-					$bar = $("#idletimeout"),
-					$countdown = $bar.find("span"),
-					timer,
-					counter = options.warningLength;
+				var self = this, 
+					warning = this.elements.warning[0],
+					timer, counter = options.warningLength;
 				
-				$bar.slideDown();
+				// fire the onIdle function
+				options.onIdle.call( warning );
 				
 				// set inital value in the countdown placeholder
-				$countdown.html( counter );
-	
-				// show the warning bar
-				$bar.slideDown();
-	
+				this.elements.countdown.html( counter );
+				
 				// create a timer that runs every second
 				timer = window.setInterval(function(){
 					counter -= 1;
 					
 					if(counter === 0){
-						options.onTimeout();
+						options.onTimeout.call();
 						window.clearInterval(timer);
 					} else {
-						$countdown.html( counter );
+						self.elements.countdown.html( counter );
 					}
 					
 				}, 1000);
 				
 				// if the continue link is clicked..
-				$bar.find("a").click(function(e){
+				this.elements.resume.bind("click", function(e){
 					e.preventDefault();
 					
 					window.clearInterval(timer); // stop the countdown
-					$bar.slideUp(); // hide the warning bar
 					self.countdownOpen = false; // stop countdown
 					self._startTimer(); // start up the timer again
+					options.onResume.call( warning ); // call the resume callback
 				});
 			},
 			
@@ -118,18 +139,13 @@
 				window.clearInterval(this.timer);
 			},
 			
-			// when the ajax request fails, either timeout of invalid serverResponseEquals
-			_failed: function(){
-				this.failedRequests--;
-			},
-			
 			_keepAlive: function(){
 				var self = this;
 				
 				// if too many requests failed, abort
 				if(!this.failedRequests){
 					this._stopTimer();
-					options.onAbort();
+					options.onAbort.call( this.elements.warning[0] );
 					return;
 				}
 				
@@ -137,13 +153,13 @@
 					timeout: options.AJAXTimeout,
 					url: options.keepAliveURL,
 					error: function(){
-						self._failed();
+						self.failedRequests--;
 					},
 					success: function(response){
 					
 						// the response from the server must equal OK
 						if($.trim(response) !== options.serverResponseEquals){
-							self._failed();
+							self.failedRequests--;
 						}
 					}
 				});

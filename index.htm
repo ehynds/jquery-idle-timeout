@@ -8,6 +8,8 @@
 <script src="src/jquery.idletimeout.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+
+// note, you don't need to wait for document.ready()
 $.idleTimeout({
 	idleAfter: 5,
 	interval: 1,
@@ -41,8 +43,8 @@ html, body { margin:0; padding:0; }
 <body>
 
 <div id="idletimeout">
-	You will be logged off in <span><!-- countdown place holder --></span>&nbsp;seconds due to inactivity. 
-	<a href="#" style="color:#fff; font-weight:bold;">Click here to continue using this web page</a>.
+	You will be logged off in <span id="idletimeout-countdown"><!-- countdown place holder --></span>&nbsp;seconds due to inactivity. 
+	<a id="idletimeout-resume" href="#" style="color:#fff; font-weight:bold;">Click here to continue using this web page</a>.
 </div>
 
 <div id="content">

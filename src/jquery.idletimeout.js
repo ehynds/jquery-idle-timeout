@@ -41,6 +41,11 @@
 				$(this).slideDown(); // show the warning bar
 			},
 			
+			// fires during each second of warningLength
+			onCountdown: function(counter){
+				$(this).find("span").html(counter);
+			},
+			
 			// fires when the user resumes the session
 			onResume: function(){
 				$(this).slideUp(); // hide the warning bar
@@ -60,8 +65,7 @@
 				$(function(){
 					self.elements = {
 						warning: $("#idletimeout"),
-						resume: $("#idletimeout-resume"),
-						countdown: $("#idletimeout-countdown")
+						resume: $("#idletimeout-resume")
 					}
 				});
 				
@@ -90,13 +94,14 @@
 			_idle: function(){
 				var self = this, 
 					warning = this.elements.warning[0],
-					timer, counter = options.warningLength;
+					timer, 
+					counter = options.warningLength;
 				
 				// fire the onIdle function
-				options.onIdle.call( warning );
+				options.onIdle.call(warning);
 				
 				// set inital value in the countdown placeholder
-				this.elements.countdown.html( counter );
+				options.onCountdown.call(warning, counter);
 				
 				// create a timer that runs every second
 				timer = window.setInterval(function(){
@@ -106,7 +111,7 @@
 						options.onTimeout.call();
 						window.clearInterval(timer);
 					} else {
-						self.elements.countdown.html( counter );
+						options.onCountdown.call(warning, counter);
 					}
 					
 				}, 1000);

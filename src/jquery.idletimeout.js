@@ -4,6 +4,10 @@
 		
 		options = $.extend({
 		
+			// the "warning" element, and the link inside to resume
+			warningElement: "#idletimeout",
+			resumeElement: "#idletimeout a",
+		
 			// number of seconds after user is idle to show the warning
 			warningLength: 30,
 			
@@ -17,7 +21,7 @@
 			idleAfter: 600,
 			
 			// a polling request will be sent to the server every X seconds
-			interval: 60,
+			pollingInterval: 60,
 			
 			// number of failed polling requests until we abort this script
 			failedRequests: 5,
@@ -63,10 +67,8 @@
 				
 				// cache elements once the DOM is ready
 				$(function(){
-					self.elements = {
-						warning: $("#idletimeout"),
-						resume: $("#idletimeout-resume")
-					}
+					self.warning = $(options.warningElement);
+					self.resume = $(options.resumeElement);
 				});
 				
 				this.countdownOpen = false;
@@ -92,8 +94,8 @@
 			},
 			
 			_idle: function(){
-				var self = this, 
-					warning = this.elements.warning[0],
+				var self = this,
+					warning = this.warning[0],
 					timer, 
 					counter = options.warningLength;
 				
@@ -108,8 +110,8 @@
 					counter -= 1;
 					
 					if(counter === 0){
-						options.onTimeout.call();
 						window.clearInterval(timer);
+						options.onTimeout.call(warning);
 					} else {
 						options.onCountdown.call(warning, counter);
 					}
@@ -117,7 +119,7 @@
 				}, 1000);
 				
 				// if the continue link is clicked..
-				this.elements.resume.bind("click", function(e){
+				this.resume.bind("click", function(e){
 					e.preventDefault();
 					
 					window.clearInterval(timer); // stop the countdown
@@ -132,7 +134,7 @@
 				
 				this.timer = window.setInterval(function(){
 					self._keepAlive();
-				}, options.interval * 1000);
+				}, options.pollingInterval * 1000);
 			},
 				
 			_stopTimer: function(){
@@ -150,7 +152,7 @@
 				// if too many requests failed, abort
 				if(!this.failedRequests){
 					this._stopTimer();
-					options.onAbort.call( this.elements.warning[0] );
+					options.onAbort.call( this.warning[0] );
 					return;
 				}
 				

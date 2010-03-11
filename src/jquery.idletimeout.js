@@ -1,6 +1,6 @@
 (function($){
 	
-	$.idleTimeout = function(options, callback){
+	$.idleTimeout = function(options){
 		
 		options = $.extend({
 		

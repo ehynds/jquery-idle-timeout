@@ -2,6 +2,8 @@
 	
 	$.idleTimeout = function(element, resume, options){
 		
+		// overwrite $.idleTimeout.options with the results of $.extend.  Allows you to write and a callback then call it from 
+		// from a jQuery UI button or something
 		options = $.idleTimeout.options = $.extend({}, $.idleTimeout.options, options);
 		
 		var IdleTimeout = {
@@ -11,8 +13,8 @@
 				this.warning = $(element);
 				this.resume = $(resume);
 				this.countdownOpen = false;
-				this._startTimer();
 				this.failedRequests = options.failedRequests;
+				this._startTimer();
 				
 				// start the idle timer
 				$.idleTimer(options.idleAfter * 1000);
@@ -130,12 +132,12 @@
 		// number of failed polling requests until we abort this script
 		failedRequests: 5,
 		
-		// the keepalive AJAX call timeout in MILLISECONDS! 
+		// the $.ajax timeout in MILLISECONDS! 
 		AJAXTimeout: 250,
 		
 		/*
 			Callbacks
-			"this" refers to the #idletimeout element.
+			"this" refers to the #idletimthis.failedRequests = options.failedRequests;eout element.
 		*/
 		// callback to fire when the session is resumed (by clicking the resume link)
 		onTimeout: function(){},
@@ -151,6 +153,6 @@
 		
 		// callback to fire when the script is aborted due to too many failed requests
 		onAbort: function(){}
-	}
+	};
 	
 })(jQuery);

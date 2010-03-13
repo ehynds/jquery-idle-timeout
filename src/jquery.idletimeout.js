@@ -8,12 +8,8 @@
 			init: function(){
 				var self = this;
 				
-				// cache elements once the DOM is ready
-				$(function(){
-					self.warning = $(element);
-					self.resume = $(resume);
-				});
-				
+				this.warning = $(element);
+				this.resume = $(resume);
 				this.countdownOpen = false;
 				this._startTimer();
 				this.failedRequests = options.failedRequests;

@@ -2,7 +2,7 @@
 	
 	$.idleTimeout = function(element, resume, options){
 		
-		options = $.extend({}, $.idleTimeout.options, options);
+		options = $.idleTimeout.options = $.extend({}, $.idleTimeout.options, options);
 		
 		var IdleTimeout = {
 			init: function(){
@@ -22,11 +22,8 @@
 					
 					// if the user is idle and a countdown isn't already running
 					if( $.data(document, 'idleTimer') === 'idle' && !self.countdownOpen ){
-					
 						self._stopTimer();
 						self.countdownOpen = true;
-						
-						// call the idle callback
 						self._idle();
 					}
 				});
@@ -38,7 +35,7 @@
 					window.clearInterval(self.countdown); // stop the countdown
 					self.countdownOpen = false; // stop countdown
 					self._startTimer(); // start up the timer again
-					options.onResume.call( warning ); // call the resume callback
+					options.onResume.call( self.warning ); // call the resume callback
 				});
 			},
 			
@@ -114,7 +111,7 @@
 		IdleTimeout.init();
 	};
 	
-	var $.idleTimeout.options = {
+	$.idleTimeout.options = {
 		// number of seconds after user is idle to show the warning
 		warningLength: 30,
 		

@@ -11,7 +11,6 @@
 <script src="src/jquery.idletimeout.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-
 $(function(){
 	$("#dialog").dialog({
 		autoOpen: false,
@@ -55,6 +54,11 @@ $(function(){
 
 <body>
 
+<div id="bar">
+	<h1><a href="http://www.erichynds.com">eric<span>hynds</span></a></h1>
+	<div><a href="http://www.erichynds.com">&laquo; Return to Blog Post</a></div>
+</div>
+
 <div id="dialog">
 	<p>
 		<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
@@ -65,12 +69,17 @@ $(function(){
 </div>
 
 <div id="content">
-<h2>jQuery Idle Timeout</h2>
-<p>This idle timeout countdown is triggered after 5 seconds.  Keep your mouse and keyboard still!</p>
-<p>A polling request is sent to the server every second to keep the server side session alive.  I've set it to one second 
-for demo purposes (timeout is only 5 seconds), but in reality, this should be much higher.</p>
-<p>View source to see markup &amp; CSS.</p>
-<a href="http://www.erichynds.com/blog/?p=66">&laquo; Return to Blog Post</a>
+	<h2>jQuery Idle Timeout Demo - jQuery UI Dialog</h2>
+	<p>This idle timeout countdown is triggered after 5 seconds.  Keep your mouse and keyboard still!</p>
+	<p>A polling request is sent to the server every second to keep the server side session alive.  I've set it to one second 
+	for demo purposes (timeout is only 5 seconds), but in reality, this should be much higher.</p>
+	<p>View source to see markup &amp; CSS.</p>
+	
+	<ul>
+	<li><a href="example-mint.htm">View the original Mint.com example</a></li>
+	<li><a href="http://www.erichynds.com/blog/?p=66">Return to Blog Post</a></li>
+	<li><a href="http://www.erichynds.com">Return to Home Page</a>
+	</ul>
 </div>
 
 

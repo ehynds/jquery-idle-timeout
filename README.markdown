@@ -1,12 +1,9 @@
 # jQuery Idle Timeout
 
-Demo @ [http://www.erichynds.com/examples/jquery-idle-timeout/index.htm](http://www.erichynds.com/examples/jquery-idle-timeout/index.htm)  
-Blog post/comments @ [http://www.erichynds.com/jquery/creating-a-mint-com-style-idle-logout-timer-using-jquery/](http://www.erichynds.com/jquery/creating-a-mint-com-style-idle-logout-timer-using-jquery/)  
+See the original [http://www.erichynds.com/examples/jquery-idle-timeout/example-mint.htm](Mint.com example), or a [http://www.erichynds.com/examples/jquery-idle-timeout/example-mint.htm](demo) using jQuery UI's dialog widget.
 
-This script allows you to create a logout timer similar to the one found on Mint.com.  After a specifed period of inactivity, a warning bar
-slides in informing the user his/her session is about to expure, and provides a link to continue the session.  If after 30 seconds (configurable, default) 
-the user does not click the continue session link, the user is redirected.
-
-Thanks to Paul Irish for the fantastic idleTimer plugin.
+This script allows you to detect when a user becomes idle (detection provided by Paul Irish's idletimer plugin) and notify the user his/her session
+is about to expire.  Similar to the technique seen on Mint.com.  Polling requests are automatically sent to the server at a configurable
+interval, maintaining the users session while s/he is using your application for long periods of time.
 
 ![Example](http://www.erichynds.com/examples/jquery-idle-timeout/screenshot.gif)

@@ -29,6 +29,7 @@ $(function(){
 				// fire whatever the configured onTimeout callback is.
 				// using .call(this) keeps the default behavior of "this" being the warning element (dialog in this case) inside the callback.
 				$.idleTimeout.options.onTimeout.call(this);
+				$(this).dialog('close');
 			}
 		}
 	});
@@ -48,7 +49,7 @@ $(function(){
 			$("#dialog-countdown").html(counter); // update the counter
 		},
 		onResume: function(){
-			// we don't need to do anything here - the button auto closes the dialog.
+			// the dialog closes.  nothing else need be done
 		}
 	});
 });
@@ -59,7 +60,6 @@ $(function(){
 
 <div id="bar">
 	<h1><a href="http://www.erichynds.com">eric<span>hynds</span></a></h1>
-	<div><a href="http://www.erichynds.com">&laquo; Return to Blog Post</a></div>
 </div>
 
 <div id="dialog">
@@ -80,8 +80,8 @@ $(function(){
 	
 	<ul>
 	<li><a href="example-mint.htm">View the original Mint.com example</a></li>
-	<li><a href="http://www.erichynds.com/blog/?p=66">Return to Blog Post</a></li>
-	<li><a href="http://www.erichynds.com">Return to Home Page</a>
+	<li><a href="http://github.com/ehynds/jquery-idle-timeout">Download &amp; follow on GitHub</a></li>
+	<li><a href="http://www.erichynds.com">Return to home page</a>
 	</ul>
 </div>
 

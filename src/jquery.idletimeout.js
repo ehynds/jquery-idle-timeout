@@ -139,7 +139,7 @@
 			Callbacks
 			"this" refers to the #idletimthis.failedRequests = options.failedRequests;eout element.
 		*/
-		// callback to fire when the session is resumed (by clicking the resume link)
+		// callback to fire when the session times out
 		onTimeout: function(){},
 		
 		// fires when the user becomes idle

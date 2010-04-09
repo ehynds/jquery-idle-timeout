@@ -19,7 +19,7 @@
 $(function(){
 	$.idleTimeout('#idletimeout', '#idletimeout a', {
 		idleAfter: 5,
-		pollingInterval: 1,
+		pollingInterval: 2,
 		keepAliveURL: 'keepalive.php',
 		serverResponseEquals: 'OK',
 		onTimeout: function(){
@@ -56,9 +56,9 @@ $(function(){
 
 <div id="content">
 	<h2>jQuery Idle Timeout Demo - Mint.com Style</h2>
-	<p>This idle timeout countdown is triggered after 5 seconds.  Keep your mouse and keyboard still!</p>
+	<p>This idle timeout countdown is triggered after 5 seconds.  <strong>Keep your mouse and keyboard still!</strong></p>
 	<p><img src="http://www.erichynds.com/examples/jquery-idle-timeout/screenshot.gif" alt="Example" /></p>
-	<p>A polling request is sent to the server every second to keep the server side session alive.  I've set it to one second 
+	<p>A polling request is sent to the server every two seconds to keep the server side session alive.  I've set this parameter to an <em>extremely</em> low number 
 	for demo purposes (timeout is only 5 seconds), but in reality, this should be much higher.</p>
 	<p>View source to see markup &amp; CSS.</p>
 	

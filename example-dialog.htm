@@ -27,8 +27,8 @@
 
 <div id="content">
 	<h2>jQuery Idle Timeout Demo - jQuery UI Dialog</h2>
-	<p>This idle timeout countdown is triggered after 5 seconds.  Keep your mouse and keyboard still!</p>
-	<p>A polling request is sent to the server every second to keep the server side session alive.  I've set it to one second 
+	<p>This idle timeout countdown is triggered after 5 seconds.  <strong>Keep your mouse and keyboard still!</strong></p>
+	<p>A polling request is sent to the server every two seconds to keep the server side session alive.  I've set this parameter to an <em>extremely</em> low number 
 	for demo purposes (timeout is only 5 seconds), but in reality, this should be much higher.</p>
 	<p>View source to see markup &amp; CSS.</p>
 	
@@ -70,9 +70,9 @@ $("#dialog").dialog({
 var $countdown = $("#dialog-countdown");
 
 // start the idle timer plugin
-$.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button', {
+$.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
 	idleAfter: 5,
-	pollingInterval: 1,
+	pollingInterval: 2,
 	keepAliveURL: 'keepalive.php',
 	serverResponseEquals: 'OK',
 	onTimeout: function(){
@@ -88,6 +88,7 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button', {
 		// the dialog closes.  nothing else needs to be done
 	}
 });
+
 </script>
 
 </body>

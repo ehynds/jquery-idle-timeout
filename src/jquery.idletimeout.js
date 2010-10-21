@@ -67,28 +67,25 @@
 			},
 			
 			_startTimer: function(){
-				var self = this;
-				
-				this.timer = window.setInterval(function(){
-					self._keepAlive();
-				}, options.pollingInterval * 1000);
+				this.timer = setTimeout(
+					$.proxy(this._keepAlive, this),
+					options.pollingInterval * 1000
+				);
 			},
-				
+			
 			_stopTimer: function(){
 				// reset the failed requests counter
 				this.failedRequests = options.failedRequests;
-				
-				// stop the timer
-				window.clearInterval(this.timer);
+				clearTimeout(this.timer);
 			},
 			
 			_keepAlive: function(){
 				var self = this;
 				
 				// if too many requests failed, abort
-				if(!this.failedRequests){
+				if( !this.failedRequests ){
 					this._stopTimer();
-					options.onAbort.call( this.element );
+					options.onAbort.call( this.warning[0] );
 					return;
 				}
 				
@@ -97,13 +94,14 @@
 					url: options.keepAliveURL,
 					error: function(){
 						self.failedRequests--;
+						self._startTimer();
 					},
 					success: function(response){
-					
-						// the response from the server must equal OK
 						if($.trim(response) !== options.serverResponseEquals){
 							self.failedRequests--;
 						}
+						
+						self._startTimer();
 					}
 				});
 			}
@@ -137,7 +135,7 @@
 		
 		/*
 			Callbacks
-			"this" refers to the #idletimthis.failedRequests = options.failedRequests;eout element.
+			"this" refers to the element found by the first selector passed to $.idleTimeout.
 		*/
 		// callback to fire when the session times out
 		onTimeout: function(){},

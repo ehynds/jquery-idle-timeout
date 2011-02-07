@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>jQuery Idle Timeout</title>
 <link href="examples.css" rel="stylesheet" type="text/css" />
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
 
 <!-- we want to force people to click a button, so hide the close link in the toolbar -->
 <style type="text/css">a.ui-dialog-titlebar-close { display:none }</style>
@@ -38,8 +38,8 @@
 	</ul>
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
 <script src="src/jquery.idletimer.js" type="text/javascript"></script>
 <script src="src/jquery.idletimeout.js" type="text/javascript"></script>
 
@@ -59,13 +59,14 @@ $("#dialog").dialog({
 		},
 		'No, Logoff': function(){
 			// fire whatever the configured onTimeout callback is.
-			// using .call(this) keeps the default behavior of "this" being the warning element (the dialog in this case) inside the callback.
+			// using .call(this) keeps the default behavior of "this" being the warning
+			// element (the dialog in this case) inside the callback.
 			$.idleTimeout.options.onTimeout.call(this);
 		}
 	}
 });
 
-// cache a reference to the countdown element so we don't have to query the DOM for it each second.
+// cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
 var $countdown = $("#dialog-countdown");
 
 // start the idle timer plugin
@@ -82,9 +83,6 @@ $.idleTimeout('#dialog', 'div.ui-dialog-buttonpane button:first', {
 	},
 	onCountdown: function(counter){
 		$countdown.html(counter); // update the counter
-	},
-	onResume: function(){
-		// the dialog closes.  nothing else needs to be done
 	}
 });
 

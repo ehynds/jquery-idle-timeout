@@ -91,15 +91,13 @@
 					url: options.keepAliveURL,
 					error: function(){
 						self.failedRequests--;
-						self._startTimer();
 					},
 					success: function(response){
 						if($.trim(response) !== options.serverResponseEquals){
 							self.failedRequests--;
 						}
-						
-						self._startTimer();
-					}
+					},
+					complete: $.proxy(this._startTimer, this),
 				});
 			}
 		};

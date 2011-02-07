@@ -34,7 +34,7 @@
 				this.resume.bind("click", function(e){
 					e.preventDefault();
 					
-					window.clearInterval(self.countdown); // stop the countdown
+					clearInterval(self.countdown); // stop the countdown
 					self.countdownOpen = false; // stop countdown
 					self._startTimer(); // start up the timer again
 					options.onResume.call( self.warning ); // call the resume callback
@@ -53,16 +53,13 @@
 				options.onCountdown.call(warning, counter);
 				
 				// create a timer that runs every second
-				this.countdown = window.setInterval(function(){
-					counter -= 1;
-					
-					if(counter === 0){
+				this.countdown = setInterval(function(){
+					if(--counter === 0){
 						window.clearInterval(self.countdown);
 						options.onTimeout.call(warning);
 					} else {
 						options.onCountdown.call(warning, counter);
 					}
-					
 				}, 1000);
 			},
 			

@@ -1,5 +1,5 @@
 /*
- * jQuery Idle Timeout 1.1
+ * jQuery Idle Timeout 1.2
  * Copyright (c) 2011 Eric Hynds
  *
  * http://www.erichynds.com/jquery/a-new-and-improved-jquery-idle-timeout-plugin/
@@ -28,7 +28,7 @@
 			this._startTimer();
 			
 			// expose obj to data cache so peeps can call internal methods
-			$.data( elem[0], 'idletimout', this );
+			$.data( elem[0], 'idletimeout', this );
 			
 			// start the idle timer
 			$.idleTimer(options.idleAfter * 1000);

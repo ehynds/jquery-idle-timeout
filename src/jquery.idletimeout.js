@@ -47,12 +47,8 @@
 			// bind continue link
 			this.resume.bind("click", function(e){
 				e.preventDefault();
-				
-				win.clearInterval(self.countdown); // stop the countdown
-				self.countdownOpen = false; // stop countdown
-				self._startTimer(); // start up the timer again
-				self._keepAlive( false ); // ping server
-				options.onResume.call( self.warning ); // call the resume callback
+
+				self._reset();
 			});
 		},
 		
@@ -126,6 +122,18 @@
 					}
 				}
 			});
+		},
+
+		_reset: function () {
+			var self = this,
+				options = this.options;
+				
+			win.clearInterval(self.countdown); // stop the countdown
+			self.countdownOpen = false; // stop countdown
+			self._startTimer(); // start up the timer again
+			self._keepAlive(false); // ping server
+
+			options.onResume.call(self.warning); // call the resume callback
 		}
 	};
 	
@@ -133,6 +141,10 @@
 	$.idleTimeout = function(element, resume, options){
 		idleTimeout.init( element, resume, $.extend($.idleTimeout.options, options) );
 		return this;
+	};
+
+	$.idleTimeout.reset = function() {
+		idleTimeout._reset();
 	};
 	
 	// options

@@ -19,13 +19,14 @@
 	var idleTimeout = {
 		init: function( element, resume, options ){
 			var self = this, elem;
-			
+
 			this.warning = elem = $(element);
 			this.resume = $(resume);
 			this.options = options;
 			this.countdownOpen = false;
 			this.failedRequests = options.failedRequests;
 			this._startTimer();
+      		this.title = document.title;
 			
 			// expose obj to data cache so peeps can call internal methods
 			$.data( elem[0], 'idletimeout', this );
@@ -61,7 +62,7 @@
 				options = this.options,
 				warning = this.warning[0],
 				counter = options.warningLength;
-			
+				
 			// fire the onIdle function
 			options.onIdle.call(warning);
 			
@@ -75,13 +76,14 @@
 					options.onTimeout.call(warning);
 				} else {
 					options.onCountdown.call(warning, counter);
+          document.title = options.titleMessage.replace('%s', counter) + self.title;
 				}
 			}, 1000);
 		},
 		
 		_startTimer: function(){
 			var self = this;
-			
+
 			this.timer = win.setTimeout(function(){
 				self._keepAlive();
 			}, this.options.pollingInterval * 1000);
@@ -96,6 +98,9 @@
 		_keepAlive: function( recurse ){
 			var self = this,
 				options = this.options;
+				
+			//Reset the title to what it was.
+			document.title = self.title;
 			
 			// assume a startTimer/keepAlive loop unless told otherwise
 			if( typeof recurse === "undefined" ){
@@ -155,8 +160,11 @@
 		// number of failed polling requests until we abort this script
 		failedRequests: 5,
 		
-		// the $.ajax timeout in MILLISECONDS! 
+		// the $.ajax timeout in MILLISECONDS!
 		AJAXTimeout: 250,
+		
+		// %s will be replaced by the counter value
+    	titleMessage: 'Warning: %s seconds until log out | ',
 		
 		/*
 			Callbacks

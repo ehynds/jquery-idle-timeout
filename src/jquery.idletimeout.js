@@ -46,7 +46,7 @@
 			});
 			
 			// bind continue link
-			this.resume.live("click", function(e){
+			this.resume.on("click", function(e){
 				e.preventDefault();
 				
 				win.clearInterval(self.countdown); // stop the countdown

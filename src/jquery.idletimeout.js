@@ -46,7 +46,7 @@
 			});
 			
 			// bind continue link
-			this.resume.bind("click", function(e){
+			this.resume.on("click", function(e){
 				e.preventDefault();
 				
 				win.clearInterval(self.countdown); // stop the countdown
@@ -164,7 +164,7 @@
 		AJAXTimeout: 250,
 		
 		// %s will be replaced by the counter value
-    	titleMessage: 'Warning: %s seconds until log out | ',
+		titleMessage: 'Warning: %s seconds until log out | ',
 		
 		/*
 			Callbacks

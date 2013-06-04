@@ -21,7 +21,7 @@
 			var self = this, elem;
 
 			this.warning = elem = $(element);
-			this.resume = $(resume);
+			this.resume = resume;
 			this.options = options;
 			this.countdownOpen = false;
 			this.failedRequests = options.failedRequests;
@@ -46,7 +46,7 @@
 			});
 			
 			// bind continue link
-			this.resume.bind("click", function(e){
+			$(document).on('click', this.resume, function(e) {
 				e.preventDefault();
 				
 				win.clearInterval(self.countdown); // stop the countdown

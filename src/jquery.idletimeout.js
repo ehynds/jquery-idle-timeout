@@ -21,7 +21,7 @@
 			var self = this, elem;
 
 			this.warning = elem = $(element);
-			this.resume = $(resume);
+			this.resume = resume;
 			this.options = options;
 			this.countdownOpen = false;
 			this.failedRequests = options.failedRequests;

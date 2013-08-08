@@ -49,12 +49,19 @@
 			this.resume.bind("click", function(e){
 				e.preventDefault();
 				
-				win.clearInterval(self.countdown); // stop the countdown
-				self.countdownOpen = false; // stop countdown
-				self._startTimer(); // start up the timer again
-				self._keepAlive( false ); // ping server
-				options.onResume.call( self.warning ); // call the resume callback
+				self._resume();
 			});
+		},
+
+		_resume: function() {
+			var self = this,
+				options = this.options;
+
+			win.clearInterval(self.countdown); // stop the countdown
+			self.countdownOpen = false; // stop countdown
+			self._startTimer(); // start up the timer again
+			self._keepAlive( false ); // ping server
+			options.onResume.call( self.warning ); // call the resume callback
 		},
 		
 		_idle: function(){
@@ -76,7 +83,7 @@
 					options.onTimeout.call(warning);
 				} else {
 					options.onCountdown.call(warning, counter);
-          document.title = options.titleMessage.replace('%s', counter) + self.title;
+					document.title = options.titleMessage.replace('%s', counter) + self.title;
 				}
 			}, 1000);
 		},
@@ -140,6 +147,14 @@
 		return this;
 	};
 	
+	$.idleTimeout.triggerIdle = function() {
+		idleTimeout._idle();
+	};
+
+	$.idleTimeout.triggerResume = function () {
+		idleTimeout._resume();
+	};
+
 	// options
 	$.idleTimeout.options = {
 		// number of seconds after user is idle to show the warning

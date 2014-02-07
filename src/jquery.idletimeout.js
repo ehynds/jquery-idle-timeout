@@ -121,8 +121,14 @@
 					self.failedRequests--;
 				},
 				success: function(response){
-					if($.trim(response) !== options.serverResponseEquals){
-						self.failedRequests--;
+					if (options.serverResponseType === 'json') {
+						if (response.result === options.serverResponseEquals){
+							self.failedRequests--;
+						}
+					} else {
+						if($.trim(response) !== options.serverResponseEquals){
+							self.failedRequests--;
+						}
 					}
 				},
 				complete: function(){
@@ -148,6 +154,11 @@
 		// url to call to keep the session alive while the user is active
 		keepAliveURL: "",
 		
+		// the type of the server response. Can be 'string' or 'json'. 'string' default
+		// if the response from the server is 'json', use this attribute to check serverResponseEquals
+		// this checks response.result === options.serverResponseEquals
+		serverResponseType: "json",
+				
 		// the response from keepAliveURL must equal this text:
 		serverResponseEquals: "OK",
 		

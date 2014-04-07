@@ -25,8 +25,6 @@
 			this.options = options;
 			this.countdownOpen = false;
 			this.failedRequests = options.failedRequests;
-			this.AJAXPingType = options.AJAXPingType;
-			this.AJAXPingData = options.AJAXPingData;
 			this._startTimer();
       		this.title = document.title;
 			
@@ -119,9 +117,9 @@
 			$.ajax({
 				timeout: options.AJAXTimeout,
 				url: options.keepAliveURL,
-				type: options.AJAXPingType,
-				dataType: AJAXPingDataType,
-				data: AJAXPingData,
+				type: options.KeepalivePingType,
+				dataType: options.KeepalivePingDataType,
+				data: options.KeepalivePingData,
 				error: function(){
 					self.failedRequests--;
 				},
@@ -180,13 +178,13 @@
 		AJAXTimeout: 250,
 
 		// AJAX method to ping the keepalive timeout, defaults to GET
-		AJAXPingType: 'GET',
+		KeepalivePingType: 'GET',
 
 		// send data over the AJAX keepalive if the type is POST
-		AJAXPingData: "",
+		KeepalivePingData: "",
 
 		// type of the data to send, defaults to json
-		AJAXPingDataType: 'json',
+		KeepalivePingDataType: 'json',
 		
 		// %s will be replaced by the counter value
     	titleMessage: 'Warning: %s seconds until log out | ',

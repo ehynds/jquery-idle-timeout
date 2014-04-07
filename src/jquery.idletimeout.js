@@ -117,12 +117,23 @@
 			$.ajax({
 				timeout: options.AJAXTimeout,
 				url: options.keepAliveURL,
+				type: options.keepAlivePingType,
+				dataType: options.keepAlivePingDataType,
+				data: options.keepAlivePingData,
+				contentType: options.keepAliveContentType,
+				processData: options.keepAliveProcessData,
 				error: function(){
 					self.failedRequests--;
 				},
 				success: function(response){
-					if($.trim(response) !== options.serverResponseEquals){
-						self.failedRequests--;
+					if (options.serverResponseType === 'json') {
+						if (response.result === options.serverResponseEquals){
+							self.failedRequests--;
+						}
+					} else {
+						if($.trim(response) !== options.serverResponseEquals){
+							self.failedRequests--;
+						}
 					}
 				},
 				complete: function(){
@@ -148,6 +159,11 @@
 		// url to call to keep the session alive while the user is active
 		keepAliveURL: "",
 		
+		// the type of the server response. Can be 'string' or 'json'. 'string' default
+		// if the response from the server is 'json', use this attribute to check serverResponseEquals
+		// this checks response.result === options.serverResponseEquals
+		serverResponseType: "json",
+				
 		// the response from keepAliveURL must equal this text:
 		serverResponseEquals: "OK",
 		
@@ -162,6 +178,21 @@
 		
 		// the $.ajax timeout in MILLISECONDS!
 		AJAXTimeout: 250,
+
+		// AJAX method to ping the keepAlive timeout, defaults to GET
+		keepAlivePingType: 'GET',
+
+		// send data over the AJAX keepAlive if the type is POST
+		keepAlivePingData: "",
+
+		// type of the data to send, defaults to json
+		keepAlivePingDataType: 'json',
+
+		// use this type to send POST data
+		keepAliveContentType: 'application/json',
+
+		// indicate wether to process the response data
+		keepAliveProcessData: false,
 		
 		// %s will be replaced by the counter value
     	titleMessage: 'Warning: %s seconds until log out | ',

@@ -117,6 +117,7 @@
 			$.ajax({
 				timeout: options.AJAXTimeout,
 				url: options.keepAliveURL,
+				type: options.AJAXPingType,
 				error: function(){
 					self.failedRequests--;
 				},
@@ -173,6 +174,9 @@
 		
 		// the $.ajax timeout in MILLISECONDS!
 		AJAXTimeout: 250,
+
+		// AJAX method to ping the keepalive timeout, defaults to GET
+		AJAXPingType: 'GET',
 		
 		// %s will be replaced by the counter value
     	titleMessage: 'Warning: %s seconds until log out | ',

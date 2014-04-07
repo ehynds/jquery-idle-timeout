@@ -120,6 +120,8 @@
 				type: options.keepAlivePingType,
 				dataType: options.keepAlivePingDataType,
 				data: options.keepAlivePingData,
+				contentType: options.keepAliveContentType,
+				processData: options.keepAliveProcessData,
 				error: function(){
 					self.failedRequests--;
 				},
@@ -185,6 +187,12 @@
 
 		// type of the data to send, defaults to json
 		keepAlivePingDataType: 'json',
+
+		// use this type to send POST data
+		keepAliveContentType: 'application/json',
+
+		// indicate wether to process the response data
+		keepAliveProcessData: false,
 		
 		// %s will be replaced by the counter value
     	titleMessage: 'Warning: %s seconds until log out | ',

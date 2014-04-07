@@ -117,9 +117,9 @@
 			$.ajax({
 				timeout: options.AJAXTimeout,
 				url: options.keepAliveURL,
-				type: options.KeepalivePingType,
-				dataType: options.KeepalivePingDataType,
-				data: options.KeepalivePingData,
+				type: options.keepAlivePingType,
+				dataType: options.keepAlivePingDataType,
+				data: options.keepAlivePingData,
 				error: function(){
 					self.failedRequests--;
 				},
@@ -177,14 +177,14 @@
 		// the $.ajax timeout in MILLISECONDS!
 		AJAXTimeout: 250,
 
-		// AJAX method to ping the keepalive timeout, defaults to GET
-		KeepalivePingType: 'GET',
+		// AJAX method to ping the keepAlive timeout, defaults to GET
+		keepAlivePingType: 'GET',
 
-		// send data over the AJAX keepalive if the type is POST
-		KeepalivePingData: "",
+		// send data over the AJAX keepAlive if the type is POST
+		keepAlivePingData: "",
 
 		// type of the data to send, defaults to json
-		KeepalivePingDataType: 'json',
+		keepAlivePingDataType: 'json',
 		
 		// %s will be replaced by the counter value
     	titleMessage: 'Warning: %s seconds until log out | ',

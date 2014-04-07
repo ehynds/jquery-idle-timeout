@@ -120,6 +120,8 @@
 				timeout: options.AJAXTimeout,
 				url: options.keepAliveURL,
 				type: options.AJAXPingType,
+				dataType: AJAXPingDataType,
+				data: AJAXPingData,
 				error: function(){
 					self.failedRequests--;
 				},
@@ -182,6 +184,9 @@
 
 		// send data over the AJAX keepalive if the type is POST
 		AJAXPingData: "",
+
+		// type of the data to send, defaults to json
+		AJAXPingDataType: 'json',
 		
 		// %s will be replaced by the counter value
     	titleMessage: 'Warning: %s seconds until log out | ',

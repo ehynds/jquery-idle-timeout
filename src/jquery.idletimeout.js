@@ -25,6 +25,8 @@
 			this.options = options;
 			this.countdownOpen = false;
 			this.failedRequests = options.failedRequests;
+			this.AJAXPingType = options.AJAXPingType;
+			this.AJAXPingData = options.AJAXPingData;
 			this._startTimer();
       		this.title = document.title;
 			
@@ -177,6 +179,9 @@
 
 		// AJAX method to ping the keepalive timeout, defaults to GET
 		AJAXPingType: 'GET',
+
+		// send data over the AJAX keepalive if the type is POST
+		AJAXPingData: "",
 		
 		// %s will be replaced by the counter value
     	titleMessage: 'Warning: %s seconds until log out | ',

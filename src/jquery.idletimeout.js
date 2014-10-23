@@ -76,6 +76,7 @@
 					options.onTimeout.call(warning);
 				} else {
 					options.onCountdown.call(warning, counter);
+					self.title = document.title;
           document.title = options.titleMessage.replace('%s', counter) + self.title;
 				}
 			}, 1000);

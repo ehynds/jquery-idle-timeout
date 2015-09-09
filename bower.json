@@ -1,0 +1,10 @@
+{
+  "name": "jq-idle-timer",
+  "version": "",
+  "main": [
+        "src/jquery.idletimeout.js",
+        "src/jquery.idletimer.js"
+  ],
+    "dependencies": {
+  }
+}

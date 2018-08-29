@@ -121,9 +121,9 @@
 					self.failedRequests--;
 				},
 				success: function(response){
-					if($.trim(response) !== options.serverResponseEquals){
-						self.failedRequests--;
-					}
+					if ( (typeof response === "object" && response !== options.serverResponseEquals) || ($.trim(response) !== options.serverResponseEquals)) {
+                        self.failedRequests--;
+                    }
 				},
 				complete: function(){
 					if( recurse ){
@@ -162,6 +162,10 @@
 		
 		// the $.ajax timeout in MILLISECONDS!
 		AJAXTimeout: 250,
+		
+        // the $.ajax content-type
+        AJAXContentType: "application/json; charset=utf-8",
+
 		
 		// %s will be replaced by the counter value
     	titleMessage: 'Warning: %s seconds until log out | ',
